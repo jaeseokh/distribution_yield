@@ -1,0 +1,130 @@
+---
+title: "Higher Moment of Yield by N x Climate: Definition and Estimation"
+format: 
+  pdf:
+    toc: false
+    number-sections: true
+    number-depth: 2
+    colorlinks: true
+    keep-tex: true
+    fontfamily: times
+    fig-cap-location: bottom
+    fig-align: center
+    tbl-cap-location: top
+    link-citations: true
+    citecolor: red
+    link-bibliography: true
+    reference-location: document
+keywords:
+  - Distribution of moment
+  - Yield N Response
+date: "`r Sys.Date()`"
+abstract: |
+  This paper explores  higher-moments of yield responses to nitrogen under variable climate conditions. We model the higher moments of yield distributions using a flexible functional approach.
+---
+
+```{r}
+#| include: false
+# Libraries and settings
+library(knitr)
+opts_chunk$set(
+  fig.align = "center",
+  fig.retina = 5,
+  warning = FALSE,
+  message = FALSE,
+  cache = FALSE,
+  echo = FALSE
+)
+library(here)
+library(tidyverse)
+library(data.table)
+library(dplyr)
+library(gt)
+library(modelsummary)
+library(flextable)
+library(ggplot2)
+library(sf)
+library(patchwork)
+library(gt)
+library(gridExtra)
+library(grid)
+
+```
+\newpage
+
+# Introduction
+
+Accurate nitrogen ($N$) use is crucial for maximizing crop yields and profitability under variable climate conditions. Understanding how $N$ affects yield distribution is essential for agricultural policy, especially under climate variability. Traditional analysis focuses on mean yield, but this overlooks yield variability and higher-order moments, which are critical for understanding the risk associated with nitrogen application.
+
+# Literature Review
+## Higher Moments of Yield
+Studies in agricultural economics show that focusing on only the mean yield effect is limiting. Literature on higher-order moments (e.g., variance, skewness) suggests that these moments provide insights into yield risk, crucial for risk-averse decision-making (Antle, 1983).
+
+## Crop Yield Insurance and Nitrogen Use
+In crop insurance, nitrogen is often considered as a factor in yield stability. Literature indicates that nitrogen can either mitigate or amplify risks associated with weather variability, with direct implications for insurance schemes.
+
+# Research Objectives
+The primary objective of this research is to evaluate whether $N$ application is yield-increasing or yield-decreasing under different climate conditions, particularly focusing on how $N$ affects not only mean yield but also the variance and higher moments of yield under the different weather events.
+
+# Methodology
+
+## Data Structuring and Panel Data Creation
+
+Our dataset consists of approximately 100 on-farm trials with variable nitrogen rates, seeding rates, and climate conditions. 
+
+### Potential problem of making combined panel data
+
+- Heterogeneity: Differences in soil, climate, and management practices across trials.
+
+- Non-Panel Structure: This dataset is not inherently structured as a panel, which poses challenges.
+
+- Solution: Using fixed effects to control for unobserved heterogeneity. Additionally, create a pseudo-panel by aggregating trial-level data into consistent nitrogen, climate, and yield variables.
+
+## Yield Response and Moment Estimation
+
+- Estimate yield response to nitrogen using machine learning models to capture non-linear relationships. 
+
+
+- Estimate moments ( first and higher ) 
+$$
+\mu_1 = E[Q] = m(x,\beta) E[e^u]
+$$ {#eq-mean-yield}
+
+Here, $m(x,\beta)$ represents the deterministic part of the yield response, which depends on inputs like nitrogen ($x$), while $E[e^u]$ represents the stochastic component.
+
+- **Nitrogen (N)** and other inputs directly affect the deterministic part of the production function.
+- The weather component ($e^u$) influences variability in yield outcomes, reflecting production risk.
+
+The variance of yield can be expressed as:
+
+$$
+\mu_2 = E[(Q - E(Q))^2] = m(x,\beta)^2 (E[e^{2u}] - E[e^u]^2)
+$$ {#eq-variance-yield}
+
+## Expected Output Moments and Their Relationship to Inputs
+
+The moments of the probability distribution of output are represented by:
+
+$$
+\mu_1(x, \gamma_i) = \int Q f(Q|x) \, dQ
+$$ {#eq-moment1}
+
+$$
+\mu_i(x, \gamma_i) = \int (Q - \mu_1)^i f(Q|x) \, dQ, \quad i > 2
+$$ {#eq-momenti}
+
+- $\mu_1(x, \gamma_i)$ is the first moment (mean yield), and $\mu_i(x, \gamma_i)$ represents higher moments.
+- This approach allows for **heteroskedasticity** (variance depending on $x$) and **heteroskewness** (skewness depending on $x$), providing a more flexible representation of yield distributions under different input conditions.
+
+
+## Empirical Model for regressino of  Yield Moments to inputs and weather
+The empirical model is:
+
+$$
+y_{it}^j = \alpha_{ij} + \beta_{j1} \text{low}_{it} + \beta_{j2} \text{S}_{it} + \beta_{j3} \text{N}_{it} + \beta_{j4} P_{it} + \beta_{j5} P^2_{it}+ \beta_{j6} G_{it}^2 + \beta_{j7} \text{N*P}_{it} +
+\beta_{j8} t + \beta_{j9} t^2 + \epsilon_{ijt}
+$$
+
+- $\alpha_{ij}$ is a fixed effect for field and moment.
+- $p_{it}$  capture precipitation and its quadratic effect.
+- $t$ and $t^2$ are time trend variables.

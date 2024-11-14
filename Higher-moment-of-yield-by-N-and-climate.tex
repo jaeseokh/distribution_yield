@@ -1,0 +1,314 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage[]{times}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{2}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Higher Moment of Yield by N x Climate: Definition and Estimation},
+  pdfkeywords={Distribution of moment, Yield N Response},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={red},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Higher Moment of Yield by N x Climate: Definition and Estimation}
+\author{}
+\date{2024-11-12}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper explores higher-moments of yield responses to nitrogen under
+variable climate conditions. We model the higher moments of yield
+distributions using a flexible functional approach.
+\end{abstract}
+
+
+\newpage
+
+\section{Introduction}\label{introduction}
+
+Accurate nitrogen (\(N\)) use is crucial for maximizing crop yields and
+profitability under variable climate conditions. Understanding how \(N\)
+affects yield distribution is essential for agricultural policy,
+especially under climate variability. Traditional analysis focuses on
+mean yield, but this overlooks yield variability and higher-order
+moments, which are critical for understanding the risk associated with
+nitrogen application.
+
+\section{Literature Review}\label{literature-review}
+
+\subsection{Higher Moments of Yield}\label{higher-moments-of-yield}
+
+Studies in agricultural economics show that focusing on only the mean
+yield effect is limiting. Literature on higher-order moments (e.g.,
+variance, skewness) suggests that these moments provide insights into
+yield risk, crucial for risk-averse decision-making (Antle, 1983).
+
+\subsection{Crop Yield Insurance and Nitrogen
+Use}\label{crop-yield-insurance-and-nitrogen-use}
+
+In crop insurance, nitrogen is often considered as a factor in yield
+stability. Literature indicates that nitrogen can either mitigate or
+amplify risks associated with weather variability, with direct
+implications for insurance schemes.
+
+\section{Research Objectives}\label{research-objectives}
+
+The primary objective of this research is to evaluate whether \(N\)
+application is yield-increasing or yield-decreasing under different
+climate conditions, particularly focusing on how \(N\) affects not only
+mean yield but also the variance and higher moments of yield under the
+different weather events.
+
+\section{Methodology}\label{methodology}
+
+\subsection{Data Structuring and Panel Data
+Creation}\label{data-structuring-and-panel-data-creation}
+
+Our dataset consists of approximately 100 on-farm trials with variable
+nitrogen rates, seeding rates, and climate conditions.
+
+\subsubsection{Potential problem of making combined panel
+data}\label{potential-problem-of-making-combined-panel-data}
+
+\begin{itemize}
+\item
+  Heterogeneity: Differences in soil, climate, and management practices
+  across trials.
+\item
+  Non-Panel Structure: This dataset is not inherently structured as a
+  panel, which poses challenges.
+\item
+  Solution: Using fixed effects to control for unobserved heterogeneity.
+  Additionally, create a pseudo-panel by aggregating trial-level data
+  into consistent nitrogen, climate, and yield variables.
+\end{itemize}
+
+\subsection{Yield Response and Moment
+Estimation}\label{yield-response-and-moment-estimation}
+
+\begin{itemize}
+\item
+  Estimate yield response to nitrogen using machine learning models to
+  capture non-linear relationships.
+\item
+  Estimate moments ( first and higher )
+  \begin{equation}\phantomsection\label{eq-mean-yield}{
+  \mu_1 = E[Q] = m(x,\beta) E[e^u]
+  }\end{equation}
+\end{itemize}
+
+Here, \(m(x,\beta)\) represents the deterministic part of the yield
+response, which depends on inputs like nitrogen (\(x\)), while
+\(E[e^u]\) represents the stochastic component.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nitrogen (N)} and other inputs directly affect the
+  deterministic part of the production function.
+\item
+  The weather component (\(e^u\)) influences variability in yield
+  outcomes, reflecting production risk.
+\end{itemize}
+
+The variance of yield can be expressed as:
+
+\begin{equation}\phantomsection\label{eq-variance-yield}{
+\mu_2 = E[(Q - E(Q))^2] = m(x,\beta)^2 (E[e^{2u}] - E[e^u]^2)
+}\end{equation}
+
+\subsection{Expected Output Moments and Their Relationship to
+Inputs}\label{expected-output-moments-and-their-relationship-to-inputs}
+
+The moments of the probability distribution of output are represented
+by:
+
+\begin{equation}\phantomsection\label{eq-moment1}{
+\mu_1(x, \gamma_i) = \int Q f(Q|x) \, dQ
+}\end{equation}
+
+\begin{equation}\phantomsection\label{eq-momenti}{
+\mu_i(x, \gamma_i) = \int (Q - \mu_1)^i f(Q|x) \, dQ, \quad i > 2
+}\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mu_1(x, \gamma_i)\) is the first moment (mean yield), and
+  \(\mu_i(x, \gamma_i)\) represents higher moments.
+\item
+  This approach allows for \textbf{heteroskedasticity} (variance
+  depending on \(x\)) and \textbf{heteroskewness} (skewness depending on
+  \(x\)), providing a more flexible representation of yield
+  distributions under different input conditions.
+\end{itemize}
+
+\subsection{Empirical Model for regressino of Yield Moments to inputs
+and
+weather}\label{empirical-model-for-regressino-of-yield-moments-to-inputs-and-weather}
+
+The empirical model is:
+
+\[
+y_{it}^j = \alpha_{ij} + \beta_{j1} \text{low}_{it} + \beta_{j2} \text{S}_{it} + \beta_{j3} \text{N}_{it} + \beta_{j4} P_{it} + \beta_{j5} P^2_{it}+ \beta_{j6} G_{it}^2 + \beta_{j7} \text{N*P}_{it} +
+\beta_{j8} t + \beta_{j9} t^2 + \epsilon_{ijt}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha_{ij}\) is a fixed effect for field and moment.
+\item
+  \(p_{it}\) capture precipitation and its quadratic effect.
+\item
+  \(t\) and \(t^2\) are time trend variables.
+\end{itemize}
+
+
+
+
+\end{document}

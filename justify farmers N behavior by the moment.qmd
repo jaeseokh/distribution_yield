@@ -1,0 +1,227 @@
+---
+title: "Dissertation Chapter: N rate justification, higher moment of yield, cliamate uncertainty"
+format: 
+  pdf:
+    toc: false
+    number-sections: true
+    number-depth: 2
+    colorlinks: true
+    keep-tex: true
+    fontfamily: times
+    fig-cap-location: bottom
+    fig-align: center
+    tbl-cap-location: top
+    link-citations: true
+    citecolor: red
+    link-bibliography: true
+    reference-location: document
+    include-in-header:
+      - preamble.tex
+    template-partials: 
+      - title.tex
+#author:
+#  - name: Jaeseok Hwang
+#    corresponding: true
+#    email: jaeseok2@illinois.edu
+#    affiliations:
+#      - University of Illinois at Urbana Champaign
+#  - name: Taro Mieno
+#    corresponding: false
+#    affiliations:
+#      - University of Nebraska-Lincoln
+#  - name: David S Bullock
+#    corresponding: false
+#    affiliations:
+#      - University of Illinois at Urbana Champaign
+keywords:
+  - Distribution of moment
+  - Need it
+  - Yield N Response
+date: "`r Sys.Date()`"
+abstract: |
+  Start with literature review and idea about how to estimate moment function with DIFM data
+keypoints:
+  - need it
+  - need more
+# bibliography: bibliography.bib
+# csl: qje.csl
+---
+
+```{r}
+#| include: false
+
+library(knitr)
+opts_chunk$set(
+  fig.align = "center",
+  fig.retina = 5,
+  warning = FALSE,
+  message = FALSE,
+  cache = FALSE,
+  echo = FALSE
+)
+
+library(here)
+library(tidyverse)
+library(data.table)
+library(dplyr)
+library(gt)
+library(modelsummary)
+library(flextable)
+library(ggplot2)
+library(sf)
+library(patchwork)
+library(gt)
+library(gridExtra)
+library(grid)
+
+```
+
+```{r}
+#--- Read the Sources and Data ---#
+
+# Read functions for data processing 
+#  source(here("Code","Functions","functions_for_table_figure.R"))
+
+# info_tb_resp <- readRDS( here("Data", "processed", "Analysis_results", "info_tb_resp.rds"))
+
+
+```
+---
+
+
+# Suggested Model: Fixed Effects Panel Regression
+
+structuring the data as panel data provides some advantages, especially for controlling unobserved heterogeneity across fields. However, there are specific considerations and challenges to address in choosing the right model for estimating each moment of yield as a function of seed, nitrogen, field-level fixed effects, and climate factors.
+
+# Dissertation Outline
+
+## 1. Introduction
+
+In recent years, the economic and environmental concerns associated with nitrogen (N) fertilizer application in agriculture have gained increasing attention. Despite considerable progress in estimating economically optimal nitrogen rates (EONR), empirical evidence suggests that farmers often apply nitrogen rates exceeding EONR. This research aims to evaluate the appropriateness of farmers' nitrogen application decisions by examining the yield distribution's higher moments (variance, skewness, and kurtosis) under different climate and nitrogen interactions.
+
+### Research Objectives
+- To determine if observed nitrogen application rates by farmers exceed the estimated EONR.
+- To evaluate the impact of nitrogen rates and climate factors on the **higher-order moments** (variance, skewness, kurtosis) of yield distribution.
+- To explore whether the observed over-application of nitrogen by farmers is justified in terms of profitability, taking into account climate uncertainty and price volatility.
+
+The methods used are built upon Antle (1983) and Tack, Harri, and Coble (2012), focusing on how higher-order moments of yield distribution can be influenced by climate and input interactions.
+
+## 2. Literature Review
+
+The literature review focuses on the relationship between nitrogen use, yield response, and climate interactions.
+
+### 2.1. Optimal Nitrogen Application
+- **Economically Optimal Nitrogen Rates (EONR)**: Discuss studies that have estimated the EONR and provide insights into how observed farmer behavior deviates from optimal levels. Emphasize how over-application leads to diminishing returns and environmental harm.
+
+### 2.2. Yield Distributions and Moments
+- **Antle (1983)**: Introduced the concept of modeling yield distributions based on higher-order moments, using **production moments** to represent stochastic production functions. Farmers' preferences over different moments (mean, variance, skewness) can determine their risk management strategies.
+- **Tack, Harri, and Coble (2012)**: Extended Antle's work by examining the impact of climate on higher-order yield moments, employing a **maximum entropy approach** to derive yield distributions under uncertainty.
+
+### 2.3. Nitrogen Use and Climate Uncertainty
+- Explore literature on how **climate variability** (e.g., temperature, precipitation) interacts with nitrogen application to impact yield. Include studies that consider **ex-ante** versus **ex-post** perspectives of uncertainty.
+
+## 3. Methodology
+
+### 3.1. Data
+- **Field Experiment Data**: Utilize on-farm experimental data from 100 fields with randomized nitrogen and seeding rate applications.
+- **Weather and Soil Data**: Include weather data (e.g., rainfall, temperature) and soil characteristics for each field.
+
+### 3.2. Econometric Model for EONR Estimation
+- **Regression Analysis**: Estimate yield response as a function of nitrogen rate ($N$), seeding rate ($S$), and control variables (soil characteristics, weather).
+  $$
+  Y_i =eta_0 +eta_1 N_i + eta_2 S_i + \sum_{j=1}^{K} \gamma_j X_{ij} + \epsilon_i
+  $$
+  where $Y_i$ is the yield, $N_i$ is nitrogen rate, $S_i$ is seeding rate, and $X_{ij}$ represents other field-specific variables (e.g., climate, soil).
+
+- **Test for Over-application**: Compare observed farmer nitrogen application rates ($N_{	ext{farmer}}$) to the estimated EONR ($N_{	ext{EONR}}$).
+  $$
+  H_0: N_{	ext{farmer}} = N_{	ext{EONR}} \quad \text{vs.} \quad H_1: N_{	ext{farmer}} > N_{	ext{EONR}}
+  $$
+
+### 3.3. Modeling Higher Moments of Yield Distribution
+- **Moment-based Yield Response**: Adapt Antle (1983)'s approach to model the **second** ($\mu_2$), **third** ($\mu_3$), and **fourth** ($\mu_4$) moments of yield.
+  $$
+  \mu_1(N, Z) = E[Y | N, Z]
+  $$
+  $$
+  \mu_2(N, Z) = E[(Y - \mu_1)^2 | N, Z]
+  $$
+  $$
+  \mu_3(N, Z) = E[(Y - \mu_1)^3 | N, Z]
+  $$
+  $$
+  \mu_4(N, Z) = E[(Y - \mu_1)^4 | N, Z]
+  $$
+  where $Z$ represents climate variables.
+
+- **Maximum Entropy Approach**: Following Tack et al. (2012), estimate the yield distribution under nitrogen-climate interaction by maximizing entropy, subject to moment constraints.
+  $$
+  f^*(Y) = \frac{1}{\psi(\gamma^*)} \exp \left( - \sum_{j=1}^J \gamma_j^* Y^j \right)
+  $$
+  where $\gamma_j^*$ are the Lagrange multipliers obtained from moment conditions, and $\psi(\gamma^*)$ is a normalization factor.
+
+## 4. Results and Discussion
+
+### 4.1. Estimation of EONR
+- Present the results of the yield response regression model.
+- Discuss the extent to which observed nitrogen rates exceed the estimated EONR and potential reasons for this behavior (e.g., risk aversion, yield variability).
+
+### 4.2. Impact of Nitrogen and Climate on Yield Moments
+- **Variance ($\mu_2$)**: Analyze how nitrogen and climate jointly impact yield variability. High variance may indicate that nitrogen over-application leads to unpredictable outcomes under climate variability.
+- **Skewness ($\mu_3$)**: Evaluate whether the distribution of yield outcomes is **negatively skewed**, implying higher risk of low yields under excess nitrogen application.
+- **Kurtosis ($\mu_4$)**: Assess if higher kurtosis suggests greater probability of extreme yield outcomes (both high and low).
+
+### 4.3. Implications for Farmer Behavior
+- Discuss the implications of yield variability and risk, relating back to farmers' over-application behavior.
+- Argue that, given the observed patterns in higher moments, over-application of nitrogen is **not economically justified** due to increased risk and lack of consistent yield gains under varying climate conditions.
+
+## 5. Conclusion
+
+- Summarize the key findings regarding nitrogen application, yield response, and the effect of climate interactions on yield distribution moments.
+- Highlight policy recommendations for encouraging farmers to optimize nitrogen use, considering yield variability and environmental sustainability.
+
+## 6. References
+- Antle, J.M. (1983). *Sequential Moments and the Analysis of Risk Preferences.*
+- Tack, J., Harri, A., & Coble, K. (2012). *More than mean effects: Modeling the effect of climate on the higher order moments of crop yields.* American Journal of Agricultural Economics, 94(5), 1037-1054.
+
+---
+title: "Higher Moment of Yield by N x Climate: Definition and Estimation"
+format: 
+  pdf:
+    toc: false
+    number-sections: true
+    number-depth: 2
+    colorlinks: true
+    keep-tex: true
+    fontfamily: times
+    fig-cap-location: bottom
+    fig-align: center
+    tbl-cap-location: top
+    link-citations: true
+    citecolor: red
+    link-bibliography: true
+    reference-location: document
+keywords:
+  - Distribution of moment
+  - Yield N Response
+date: "`r Sys.Date()`"
+abstract: |
+  This paper explores yield responses to nitrogen under variable climate conditions. We model the higher moments of yield distributions using a flexible functional approach.
+---
+
+```{r}
+#| include: false
+# Libraries and settings
+library(here)
+library(tidyverse)
+library(data.table)
+library(dplyr)
+library(gt)
+library(modelsummary)
+library(flextable)
+library(ggplot2)
+library(sf)
+library(patchwork)
+library(gt)
+library(gridExtra)
+library(grid)
